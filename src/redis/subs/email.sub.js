@@ -1,13 +1,13 @@
 //* IMPORT
-const { SEND_EMAIL, USER_EXIT } = require("../../commons/keys/sub");
+const { SendEmail, UserExit } = require("../../commons/keys/sub");
 const redisPubSub = require("../../databases/init.sub");
 
-redisPubSub.registerHandler(SEND_EMAIL, (message) => {
+redisPubSub.registerHandler(SendEmail, (message) => {
   console.log("Received Message:", JSON.parse(message));
 });
 
-redisPubSub.registerHandler(USER_EXIT, (message) => {
+redisPubSub.registerHandler(UserExit, (message) => {
   console.log("Received Message:", JSON.parse(message));
 });
 
-redisPubSub.initializeSubscriptions([SEND_EMAIL, USER_EXIT]);
+redisPubSub.initializeSubscriptions([SendEmail, UserExit]);
