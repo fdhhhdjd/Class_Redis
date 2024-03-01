@@ -1,3 +1,5 @@
+//* IMPORT
+const redisPub = require("../../../databases/init.pub");
 class LabelService {
   // Todo 1. Get all
   async pub() {
@@ -5,10 +7,9 @@ class LabelService {
       id: "id",
       name: "name",
     };
+    redisPub.publish("user:exit", JSON.stringify(data));
     return data;
   }
-
-  // Todo 2. Get detail
 }
 
 module.exports = new LabelService();
