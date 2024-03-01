@@ -1,0 +1,12 @@
+//* LIB
+const express = require("express");
+
+//* IMPORT
+const redisController = require("../../controllers/redis.controller");
+const { asyncHandler } = require("../../../../commons/helpers/asyncHandler");
+
+const router = express.Router();
+
+router.get("/pub", asyncHandler(redisController.pub));
+
+module.exports = router;

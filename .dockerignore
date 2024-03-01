@@ -1,0 +1,43 @@
+.git
+.github
+.vscode
+coverage
+docs
+mock-config
+*.sh
+.editorconfig
+.prettierignore
+config.yaml
+jest*
+npm-debug.log
+yarn-error.log
+**/*.test.ts
+src/test
+**/*.pem
+
+# Data
+db_data
+minio_data
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile*
+docker-compose*
+
+# NPM dependencies
+node_modules
+
+
+# Eslint 
+.eslintignore
+.eslintrc.js
+
+#prettieri
+.prettierignore
+.prettierrc
+
+#unittest
+test

@@ -1,0 +1,7 @@
+CREATE TABLE public.todo_list (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    user_id INTEGER REFERENCES public.user(id),
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
+);

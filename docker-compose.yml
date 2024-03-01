@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  ###* PG4 ###
+  postgresql:
+    container_name: postgresql
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT_EDIT}:${POSTGRES_PORT}"
+    env_file:
+      - .env
+    networks:
+      - fullstack
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'",
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+###* NETWORD GENERAL ###
+networks:
+  fullstack:
+    driver: bridge
+volumes:
+  db_data:
+    driver: local

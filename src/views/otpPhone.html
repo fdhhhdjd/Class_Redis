@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Template</title>
+    <style>
+      body {
+        font-family: Helvetica, Arial, sans-serif;
+        min-width: 1000px;
+        overflow: auto;
+        line-height: 2;
+      }
+      .container {
+        margin: 50px auto;
+        width: 70%;
+        padding: 20px 0;
+      }
+      .header {
+        border-bottom: 1px solid #eee;
+      }
+      .brand-link {
+        font-size: 1.4em;
+        color: #00466a;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .message {
+        font-size: 1.1em;
+      }
+      .otp-container {
+        background: #00466a;
+        margin: 0 auto;
+        width: max-content;
+        padding: 0 10px;
+        color: #fff;
+        border-radius: 4px;
+      }
+      .otp {
+        font-size: 2em;
+      }
+      .signature {
+        font-size: 0.9em;
+      }
+      .address {
+        float: right;
+        padding: 8px 0;
+        color: #aaa;
+        font-size: 0.8em;
+        line-height: 1;
+        font-weight: 300;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <a href="profile-forme.com" target="_blank" class="brand-link"
+          >Tai Developer</a
+        >
+      </div>
+      <p class="message">Xin chào {{username}},</p>
+      <p>
+        Cảm ơn bạn đã lựa chọn công ty chúng tôi. Sử dụng mã OTP sau để hoàn tất
+        các thủ tục Đăng ký của bạn. Mã OTP có hiệu lực trong 5 phút
+      </p>
+      <div class="otp-container">
+        <h2 class="otp">{{otp}}</h2>
+      </div>
+      <p class="signature">Trân trọng,<br />class fullstack</p>
+      <hr style="border: none; border-top: 1px solid #eee" />
+      <div class="address">
+        <p>Nguyen Tien Tai</p>
+      </div>
+    </div>
+  </body>
+</html>
