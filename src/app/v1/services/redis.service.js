@@ -19,9 +19,9 @@ class RedisService {
   }
   async saveData() {
     const resultData = await redisModel.save();
-
-    redisInstance.del(SaveDataHashObject);
-
+    if (resultData) {
+      redisInstance.del(SaveDataHashObject);
+    }
     return resultData;
   }
 
