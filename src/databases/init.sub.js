@@ -33,7 +33,7 @@ class RedisSub {
 
     this.redisClient.on("pmessage", async (pattern, channel, message) => {
       console.info(pattern, "::::::::pattern");
-      const handler = this.channelHandlers.get(channel);
+      const handler = this.channelHandlers.get(pattern);
       if (handler) {
         if (isValidJSON(message)) {
           try {
