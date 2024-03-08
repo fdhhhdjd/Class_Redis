@@ -169,3 +169,17 @@
     ZREM sorted_favorite_products:user-001 "product3"
     DEL sorted_favorite_products:user-001
 ```
+
+## 7 REDIS PUB/SUB
+```bash
+    # Pub
+    PUBLISH user_tai_heo hello
+
+    # Sub ( Single, multi )
+    SUBSCRIBE user_tai_heo
+
+    PSUBSCRIBE user.*
+    PSUBSCRIBE .*user
+    PSUBSCRIBE user*
+
+```
