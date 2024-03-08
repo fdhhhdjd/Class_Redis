@@ -18,6 +18,22 @@ class RedisController {
       metadata: await redisService.pub(),
     }).send(res);
   }
+
+  async transaction(_, res, ___) {
+    new SuccessResponse({
+      metadata: await redisService.transaction(),
+    }).send(res);
+  }
+  async batchSize(_, res, ___) {
+    new SuccessResponse({
+      metadata: await redisService.batchSize(),
+    }).send(res);
+  }
+  async getAllDataHashFromRedis(_, res, ___) {
+    new SuccessResponse({
+      metadata: await redisService.getAllDataHashFromRedis(),
+    }).send(res);
+  }
 }
 
 module.exports = new RedisController();
