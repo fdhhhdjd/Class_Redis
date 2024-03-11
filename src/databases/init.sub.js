@@ -34,11 +34,15 @@ class RedisSub {
     this.redisClient.on("pmessage", async (pattern, channel, message) => {
       console.info(pattern, "::::::::pattern");
       const handler = this.channelHandlers.get(pattern);
+      console.log(message);
       if (handler) {
         if (isValidJSON(message)) {
           try {
             const parsedMessage = JSON.parse(message);
-            handler(parsedMessage);
+            console.log(parsedMessage);
+            if (parsedMessage) {
+              handler(parsedMessage);
+            }
           } catch (error) {
             console.error(
               `Error processing Redis message on channel ${channel}:`,
@@ -51,6 +55,10 @@ class RedisSub {
             message
           );
         }
+      } else {
+        console.error(
+          `No handler found for pattern ${pattern} on channel ${channel}`
+        );
       }
     });
   }
