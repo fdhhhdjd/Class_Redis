@@ -5,27 +5,11 @@ const {
   StatusCodes,
   ReasonPhrases,
 } = require("../commons/utils/httpStatusCode");
-// const logger = require("../loggers/winston.log");
-const myLogger = require("../loggers/mylogger.log");
-
 class ErrorResponse extends Error {
   constructor(message, status) {
     super(message);
     this.status = status;
     this.now = Date.now();
-
-    // logger.error(`${this.status} = ${this.message}`);
-    // myLogger.error(this.message, {
-    //   context: "/path",
-    //   requestId: "uuaaaa",
-    //   message: this.message,
-    //   metadata: {},
-    // });
-    // myLogger.error(this.message, [
-    //   "/api/v1/messages",
-    //   "123123123",
-    //   { error: "Bad request" },
-    // ]);
   }
 }
 class BadRequestRequestError extends ErrorResponse {
