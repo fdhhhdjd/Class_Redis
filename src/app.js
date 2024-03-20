@@ -52,7 +52,7 @@ app.use((req, __, next) => {
 require("./databases/init.redis");
 
 //* CORE
-require("./redis/subs/email.sub");
+// require("./redis/subs/email.sub");
 
 // * V1
 app.use("/api/v1", require("./app/v1/routes"));

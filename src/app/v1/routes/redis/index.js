@@ -14,4 +14,6 @@ router.get("/transaction", asyncHandler(redisController.transaction));
 router.get("/batch/size", asyncHandler(redisController.batchSize));
 router.get("/get/all", asyncHandler(redisController.getAllDataHashFromRedis));
 
+router.get("/spam/user", asyncHandler(redisController.spamUser));
+
 module.exports = router;

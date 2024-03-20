@@ -4,7 +4,7 @@ const axios = require("axios");
 
 //* IMPORT
 const redisModel = require("../models/redis.model");
-const redisPub = require("../../../databases/init.pub");
+// const redisPub = require("../../../databases/init.pub");
 const redisInstance = require("../../../databases/init.redis");
 const { SaveDataHashObject } = require("../../../commons/keys/save");
 const { UserExit } = require("../../../commons/keys/sub");
@@ -16,7 +16,7 @@ class RedisService {
       id: "id",
       name: "name",
     };
-    redisPub.publish(UserExit, JSON.stringify(data));
+    // redisPub.publish(UserExit, JSON.stringify(data));
     return data;
   }
   async saveData() {
@@ -127,6 +127,36 @@ class RedisService {
     } catch (error) {
       return null;
     }
+  }
+
+  async spamUser() {
+    const key = "spam_user", // Key spam of every user
+      blockDuration = 3 * 60, // We will block it into 3 minutes
+      delDuration = 10, // Delete when user login normally
+      maxRequest = 3; // Max request per minute
+
+    // It will yet increment when user request to link api
+    const numberRequest = await redisInstance.incr(key);
+
+    let _ttl;
+    const addExpireKeyBlock = numberRequest === maxRequest + 1;
+
+    if (addExpireKeyBlock) {
+      redisInstance.expire(key, blockDuration);
+      _ttl = blockDuration;
+    } else {
+      // Get time ttl of key
+      _ttl = await redisInstance.ttl(key);
+    }
+
+    // If user request to link api more than 3 times block user in 3 minutes
+    if (numberRequest > maxRequest) {
+      return `You are blocked by ${_ttl}s thank you`;
+    }
+
+    redisInstance.expire(key, delDuration);
+
+    return "Ok";
   }
 }
 

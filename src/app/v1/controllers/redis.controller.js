@@ -34,6 +34,12 @@ class RedisController {
       metadata: await redisService.getAllDataHashFromRedis(),
     }).send(res);
   }
+
+  async spamUser(_, res, ___) {
+    new SuccessResponse({
+      metadata: await redisService.spamUser(),
+    }).send(res);
+  }
 }
 
 module.exports = new RedisController();
