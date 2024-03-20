@@ -1,5 +1,4 @@
 //* IMPORT
-const logger = require("../../loggers/winston.log");
 const { StatusCodes, ReasonPhrases } = require("../utils/httpStatusCode");
 
 const errorHandler = (error, checkNodeApp) => {
@@ -15,7 +14,6 @@ const errorHandler = (error, checkNodeApp) => {
     Object.assign(response, { stack: error.stack });
   }
 
-  logger.error(`${response.status} = ${response.message} = ${response.stack}`);
   return { response };
 };
 
