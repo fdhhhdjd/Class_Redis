@@ -13,6 +13,11 @@ class RedisV2Controller {
       metadata: await redisV2Service.infoHyperLogLog(),
     }).send(res);
   }
+  async geoSpatial(_, res, ___) {
+    new SuccessResponse({
+      metadata: await redisV2Service.geoSpatial(),
+    }).send(res);
+  }
 }
 
 module.exports = new RedisV2Controller();
