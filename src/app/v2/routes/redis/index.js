@@ -7,7 +7,7 @@ const { asyncHandler } = require("../../../../commons/helpers/asyncHandler");
 
 const router = express.Router();
 
-router.post("/hyperLogLog", asyncHandler(redisController.hyperLogLog));
+router.get("/hyperLogLog", asyncHandler(redisController.hyperLogLog));
 router.get("/info/hyperLogLog", asyncHandler(redisController.infoHyperLogLog));
 router.get("/geoSpatial", asyncHandler(redisController.geoSpatial));
 

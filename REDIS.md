@@ -184,7 +184,16 @@
 
 ```
 
-## 8 STREAM
+## 8 REDIS Bitmaps and Bitfields
+```bash
+    SETBIT user:status 1002 0
+    GETBIT user:status 1002 
+
+```
+
+
+
+## 9 STREAM
 ```bash
     # Pub
     XADD tickets * name "nguyen tien tai" seat "B12" movieId 53 sessonId 832
@@ -205,5 +214,4 @@
     xgroup create tickets officer_group $
 
     XREADGROUP GROUP officer_group consumer2 BLOCK 360000 STREAMS tickets >
-
 ```

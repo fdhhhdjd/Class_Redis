@@ -45,13 +45,16 @@ class RedisV2Service {
     ];
 
     storeLocations.forEach((store) => {
-      redisInstance.geoadd(keyStore, store.latitude, store.name, "CH");
+      redisInstance.geoadd(
+        keyStore,
+        "CH",
+        store.longitude,
+        store.latitude,
+        store.name
+      );
     });
 
-    const userLongitude = -124.419416;
-    const userLatitude = 34.774929;
-    const searchRadius = 160000; // 10,000 km
-    function formatDistance(distance) {
+    const formatDistance = (distance) => {
       if (distance >= 1000) {
         return (distance / 1000).toFixed(2) + "km";
       } else if (distance >= 1) {
@@ -59,7 +62,11 @@ class RedisV2Service {
       } else {
         return distance.toFixed(3) + "m";
       }
-    }
+    };
+
+    const userLongitude = -124.419416;
+    const userLatitude = 34.774929;
+    const searchRadius = 160000;
 
     const result = await new Promise((resolve, reject) => {
       redisInstance.georadius(
@@ -85,15 +92,14 @@ class RedisV2Service {
       );
     });
 
-    const convertedData =
-      result?.map((nearestStore) => ({
-        nearest_store: nearestStore[0],
-        distance: formatDistance(parseFloat(nearestStore[1])),
-        coordinates: {
-          longitude: parseFloat(nearestStore[3][0]),
-          latitude: parseFloat(nearestStore[3][1]),
-        },
-      })) || [];
+    const convertedData = result.map((nearestStore) => ({
+      nearest_store: nearestStore[0],
+      distance: formatDistance(parseFloat(nearestStore[1])),
+      coordinates: {
+        longitude: parseFloat(nearestStore[3][0]),
+        latitude: parseFloat(nearestStore[3][1]),
+      },
+    }));
 
     return convertedData;
   }
