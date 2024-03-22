@@ -35,7 +35,6 @@ class RedisV2Service {
       typeRedis: dataType,
     };
   }
-
   async geoSpatial() {
     const keyStore = "stores";
 

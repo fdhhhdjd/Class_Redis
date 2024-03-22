@@ -183,3 +183,27 @@
     PSUBSCRIBE user*
 
 ```
+
+## 8 STREAM
+```bash
+    # Pub
+    XADD tickets * name "nguyen tien tai" seat "B12" movieId 53 sessonId 832
+    xadd tickets * name "nguyen quoc hao" seat "B13" movieId 53 sessonId 832
+    xadd tickets * name "dang thi ngoc tuyen" seat "B14" movieId 53 sessonId 832
+
+    xlen tickets
+
+    xread streams tickets 0-0
+
+    xread block 60000 streams tickets $
+    
+
+    xrange tickets  1711081499957-0 1711081531247-0
+    xrange tickets - + count 3
+    xread streams  tickets 0
+
+    xgroup create tickets officer_group $
+
+    XREADGROUP GROUP officer_group consumer2 BLOCK 360000 STREAMS tickets >
+
+```
