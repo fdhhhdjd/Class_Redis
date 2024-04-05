@@ -103,6 +103,53 @@ class RedisV2Service {
 
     return convertedData;
   }
+  async lockRequestCache() {
+    const key = "dataCache";
+    const cacheData = await redisInstance.get(key);
+
+    if (cacheData !== null) {
+      return cacheData;
+    }
+
+    const lockKey = `${key}:lock`;
+    const lockAcquired = await this.acquireLock(lockKey);
+
+    if (!lockAcquired) {
+      return await this.waitForCache(key);
+    }
+
+    try {
+      const newData = await this.fetchDataFromSource();
+      await redisInstance.set(key, newData);
+      return newData;
+    } finally {
+      await redisInstance.del(lockKey);
+    }
+  }
+
+  async acquireLock(lockKey) {
+    const lockAcquired = await redisInstance.set(
+      lockKey,
+      "lock",
+      "NX",
+      "EX",
+      10
+    );
+    return lockAcquired;
+  }
+
+  async waitForCache(key) {
+    return new Promise((resolve, reject) => {
+      setTimeout(async () => {
+        const updatedData = await redisInstance.get(key);
+        resolve(updatedData);
+      }, 5000);
+    });
+  }
+
+  async fetchDataFromSource() {
+    return "Data from the source";
+  }
 }
 
 module.exports = new RedisV2Service();

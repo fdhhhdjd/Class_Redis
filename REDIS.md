@@ -215,3 +215,10 @@
 
     XREADGROUP GROUP officer_group consumer2 BLOCK 360000 STREAMS tickets >
 ```
+
+## Loadtest
+```bash
+    # -n: request
+    # -c: consistency
+    loadtest -n 100 -c 10 http://localhost:5001/api/v2/redis/lock
+```

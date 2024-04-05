@@ -18,6 +18,11 @@ class RedisV2Controller {
       metadata: await redisV2Service.geoSpatial(),
     }).send(res);
   }
+  async lockRequestCache(_, res, ___) {
+    new SuccessResponse({
+      metadata: await redisV2Service.lockRequestCache(),
+    }).send(res);
+  }
 }
 
 module.exports = new RedisV2Controller();
