@@ -222,3 +222,12 @@
     # -c: consistency
     loadtest -n 100 -c 10 http://localhost:5001/api/v2/redis/lock
 ```
+
+## Check core Cluster Nodejs
+
+![alt text](assets/cluster.png)
+```bash 
+    lscpu
+    cat /proc/cpuinfo | grep "processor" | wc -l
+    cat /proc/cpuinfo | grep "core id" | sort | uniq | wc -l
+```

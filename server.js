@@ -7,6 +7,7 @@ const logger = require("./src/loggers/winston.log");
 
 const server = app.listen(PORT, () => {
   console.info(`💸 Api backend start with http://localhost:${PORT} 🔥`);
+  console.log(`Worker pid ${process.pid}`);
 });
 
 process.on("unhandledRejection", (reason, promise) => {
