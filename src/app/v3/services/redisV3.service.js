@@ -6,6 +6,7 @@ class RedisV3Service {
   constructor() {
     this.keyBloom = "keyBloom";
     this.keyCuckoo = "keyCuckoo";
+    this.topkKey = "topk-key";
   }
 
   async init() {
@@ -13,6 +14,7 @@ class RedisV3Service {
     await redisInstance.send_command("CF.RESERVE", [this.keyCuckoo, 1000]);
   }
 
+  // Todo: Bloom
   async bloomFilter(value) {
     const username = value ? value : generateRandomUsername();
     const exists = await redisInstance.send_command("BF.EXISTS", [
@@ -27,6 +29,7 @@ class RedisV3Service {
     }
   }
 
+  // Todo: Cuckoo
   async cuckooFilter(username) {
     const exists = await redisInstance.send_command("CF.EXISTS", [
       this.cuckooKey,
@@ -50,6 +53,37 @@ class RedisV3Service {
     } else {
       return { message: "Người dùng không tồn tại." };
     }
+  }
+
+  // Todo:Top-K
+  async addValue(value, count = 1) {
+    const exists = await redisInstance.exists(this.topkKey);
+    if (!exists) {
+      await redisInstance.send_command("TOPK.RESERVE", [
+        this.topkKey,
+        "10000",
+        "50",
+        "2000",
+        "0.5",
+      ]);
+    }
+    await redisInstance.send_command("TOPK.ADD", [this.topkKey, value, count]);
+    return { message: "Add Top K Success" };
+  }
+
+  async getCount(value) {
+    const count = await redisInstance.send_command("TOPK.COUNT", [
+      this.topkKey,
+      value,
+    ]);
+    return count;
+  }
+
+  async getTopK() {
+    const result = await redisInstance.send_command("TOPK.LIST", [
+      this.topkKey,
+    ]);
+    return result;
   }
 }
 
