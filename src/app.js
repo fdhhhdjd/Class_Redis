@@ -15,6 +15,7 @@ const {
 } = require("./commons/configs/app.config");
 const { errorHandler } = require("./commons/helpers/errorHandle");
 const myLogger = require("./loggers/mylogger.log");
+const redisV3Service = require("./app/v3/services/redisV3.service");
 
 const app = express();
 dotenv.config();
@@ -50,6 +51,10 @@ app.use((req, __, next) => {
 
 //* Database & Cache
 require("./databases/init.redis");
+
+(async () => {
+  await redisV3Service.init();
+})();
 
 //* CORE
 // require("./redis/subs/email.sub");

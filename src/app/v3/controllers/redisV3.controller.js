@@ -47,6 +47,21 @@ class RedisV3Controller {
       metadata: await redisV3Service.getTopK(username),
     }).send(res);
   }
+
+  //* Count-Min Sketch
+  async addValueText(req, res, ___) {
+    const { text } = req.body;
+    new SuccessResponse({
+      metadata: await redisV3Service.addValueText(text),
+    }).send(res);
+  }
+
+  async getCountText(req, res, ___) {
+    const { text } = req.query;
+    new SuccessResponse({
+      metadata: await redisV3Service.getCountText(text),
+    }).send(res);
+  }
 }
 
 module.exports = new RedisV3Controller();

@@ -7,11 +7,49 @@ class RedisV3Service {
     this.keyBloom = "keyBloom";
     this.keyCuckoo = "keyCuckoo";
     this.topkKey = "topk-key";
+    this.cmsKey = "cms-key";
   }
 
   async init() {
-    await redisInstance.send_command("BF.RESERVE", [this.keyBloom, 0.01, 1000]);
-    await redisInstance.send_command("CF.RESERVE", [this.keyCuckoo, 1000]);
+    // Kiểm tra sự tồn tại trước khi khởi tạo Bloom Filter
+    const bloomExists = await redisInstance.send_command("EXISTS", [
+      this.keyBloom,
+    ]);
+    if (!bloomExists) {
+      await redisInstance.send_command("BF.RESERVE", [
+        this.keyBloom,
+        0.01,
+        1000,
+      ]);
+    }
+
+    // Kiểm tra sự tồn tại trước khi khởi tạo Cuckoo Filter
+    const cuckooExists = await redisInstance.send_command("EXISTS", [
+      this.keyCuckoo,
+    ]);
+    if (!cuckooExists) {
+      await redisInstance.send_command("CF.RESERVE", [this.keyCuckoo, 1000]);
+    }
+
+    // Kiểm tra sự tồn tại trước khi khởi tạo Count-Min Sketch
+    const cmsExists = await redisInstance.send_command("EXISTS", [this.cmsKey]);
+    if (!cmsExists) {
+      await redisInstance.send_command("CMS.INITBYDIM", [this.cmsKey, 1000, 5]);
+    }
+
+    // Kiểm tra sự tồn tại trước khi khởi tạo Top-K
+    const topkExists = await redisInstance.send_command("EXISTS", [
+      this.topkKey,
+    ]);
+    if (!topkExists) {
+      await redisInstance.send_command("TOPK.RESERVE", [
+        this.topkKey,
+        "10000",
+        "50",
+        "2000",
+        "0.5",
+      ]);
+    }
   }
 
   // Todo: Bloom
@@ -59,13 +97,7 @@ class RedisV3Service {
   async addValue(value, count = 1) {
     const exists = await redisInstance.exists(this.topkKey);
     if (!exists) {
-      await redisInstance.send_command("TOPK.RESERVE", [
-        this.topkKey,
-        "10000",
-        "50",
-        "2000",
-        "0.5",
-      ]);
+      return { message: "Key not found" };
     }
     await redisInstance.send_command("TOPK.ADD", [this.topkKey, value, count]);
     return { message: "Add Top K Success" };
@@ -84,6 +116,21 @@ class RedisV3Service {
       this.topkKey,
     ]);
     return result;
+  }
+
+  //* Count-Min Sketch
+  async addValueText(value, count = 1) {
+    await redisInstance.send_command("CMS.INCRBY", [this.cmsKey, value, count]);
+    return { message: "Add Count-Min Sketch Success" };
+  }
+
+  async getCountText(value) {
+    // Lấy ước lượng số lần xuất hiện của giá trị từ Count-Min Sketch
+    const count = await redisInstance.send_command("CMS.QUERY", [
+      this.cmsKey,
+      value,
+    ]);
+    return count;
   }
 }
 
