@@ -27,4 +27,14 @@ const generateRandomLink = (length) => {
   });
 };
 
-module.exports = { generateRandomString, generateRandomLink };
+const generateRandomUsername = () => {
+  const randomNumber = Math.floor(Math.random() * 10000) + 1;
+  const username = "User" + randomNumber;
+  return username;
+};
+
+module.exports = {
+  generateRandomString,
+  generateRandomLink,
+  generateRandomUsername,
+};

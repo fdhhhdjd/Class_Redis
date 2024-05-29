@@ -8,16 +8,19 @@ class RedisV2Controller {
       metadata: await redisV2Service.hyperLogLog(req.body),
     }).send(res);
   }
+
   async infoHyperLogLog(_, res, ___) {
     new SuccessResponse({
       metadata: await redisV2Service.infoHyperLogLog(),
     }).send(res);
   }
+
   async geoSpatial(_, res, ___) {
     new SuccessResponse({
       metadata: await redisV2Service.geoSpatial(),
     }).send(res);
   }
+
   async lockRequestCache(_, res, ___) {
     new SuccessResponse({
       metadata: await redisV2Service.lockRequestCache(),

@@ -56,8 +56,12 @@ require("./databases/init.redis");
 
 // * V1
 app.use("/api/v1", require("./app/v1/routes"));
+
 // * V2
 app.use("/api/v2", require("./app/v2/routes"));
+
+// * V3
+app.use("/api/v3", require("./app/v3/routes"));
 
 app.use((error, __, next) => {
   next(error);

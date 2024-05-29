@@ -1,12 +1,11 @@
 //* LIB
 const IOREDIS = require("ioredis");
+const {
+  redis: { host, port, user, password },
+} = require("../commons/configs/redis.config");
 
 class RedisClient {
   constructor() {
-    const {
-      redis: { host, port, user, password },
-    } = require("../commons/configs/redis.config");
-
     this.redisInstance = new IOREDIS({
       port,
       host,
