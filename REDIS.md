@@ -1,5 +1,19 @@
 # Learn Redis
 
+## 0. CLUSTER
+``` bash
+    redis-cli -c -p 7002
+    
+    docker exec -it redis-node-1 redis-cli --cluster create \
+    redis-node-1:7001 \
+    redis-node-2:7002 \
+    redis-node-3:7003 \
+    redis-node-4:7004 \
+    redis-node-5:7005 \
+    redis-node-6:7006 \
+    --cluster-replicas 1
+```
+
 ## 1. CONNECT REDIS
 ```bash
     redis-cli -h <host> -p <port>  -a  <password>
