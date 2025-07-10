@@ -5,6 +5,6 @@ const {
 } = require("./src/commons/configs/app.config");
 
 app.listen(PORT, () => {
-  console.info(`💸 Api backend start with http://localhost:${PORT} 🔥`);
+  console.info(`💸 Api backend start with http://localhost:${PORT} 🔥 !`);
   console.log(`Worker pid ${process.pid}`);
 });
