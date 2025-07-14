@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  redis-search:
+    image: redislabs/redisearch:latest # RedisSearch + Module
+    container_name: redis-search
+    ports:
+      - "6381:6379"
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
