@@ -5,7 +5,7 @@ services:
     command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
     ports:
       - "7001:7001"
-      - "17001:17001" # cluster bus port = port + 10000
+      - "17001:17001" # name: cluster bus port = port + 10000
     volumes:
       - ./redis-node-1.conf:/usr/local/etc/redis/redis.conf
     networks:
