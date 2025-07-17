@@ -4,7 +4,7 @@ services:
     container_name: redis-node-1
     command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
     ports:
-      - "7001:7001"
+      - "7001:7001" # Name: redis port
       - "17001:17001" # Name: cluster bus port = port + 10000
     volumes:
       - ./redis-node-1.conf:/usr/local/etc/redis/redis.conf
