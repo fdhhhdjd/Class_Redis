@@ -6,5 +6,5 @@ const {
 
 app.listen(PORT, () => {
   console.info(`💸 Api backend start with http://localhost:${PORT} 🔥 !`);
-  console.log(`Worker pid ${process.pid}`);
+  console.log(`Worker pid ${process.pid}`); // Log the worker process ID
 });
