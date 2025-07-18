@@ -22,5 +22,6 @@ cluster.on("exit", (worker, code, signal) => {
   console.log("Starting another worker", code, signal);
   cluster.fork();
 });
+// The total number of CPUs: 8
 // One CPU with 8 cores and 4 threads means each core can execute up to 4 threads simultaneously, totaling 32 threads (8 cores x 4 threads).
 // Một CPU có 8 nhân và 4 luồng có nghĩa là mỗi nhân có thể thực hiện tối đa 4 luồng đồng thời, tổng cộng là 32 luồng (8 nhân x 4 luồng).
