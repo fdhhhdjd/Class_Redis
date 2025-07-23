@@ -7,7 +7,7 @@ services:
       - "7001:7001" # Name: redis port
       - "17001:17001" # Name: cluster bus port = port + 10000
     volumes:
-      - ./redis-node-1.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/cluster/redis-node-1.conf:/usr/local/etc/redis/redis.conf
     networks:
       - redis-cluster-net
 
@@ -19,7 +19,7 @@ services:
       - "7002:7002"
       - "17002:17002"
     volumes:
-      - ./redis-node-2.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/cluster/redis-node-2.conf:/usr/local/etc/redis/redis.conf
     networks:
       - redis-cluster-net
 
@@ -31,7 +31,7 @@ services:
       - "7003:7003"
       - "17003:17003"
     volumes:
-      - ./redis-node-3.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/cluster/redis-node-3.conf:/usr/local/etc/redis/redis.conf
     networks:
       - redis-cluster-net
 
@@ -43,7 +43,7 @@ services:
       - "7004:7004"
       - "17004:17004"
     volumes:
-      - ./redis-node-4.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/cluster/redis-node-4.conf:/usr/local/etc/redis/redis.conf
     networks:
       - redis-cluster-net
 
@@ -55,7 +55,7 @@ services:
       - "7005:7005"
       - "17005:17005"
     volumes:
-      - ./redis-node-5.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/cluster/redis-node-5.conf:/usr/local/etc/redis/redis.conf
     networks:
       - redis-cluster-net
 
@@ -67,7 +67,7 @@ services:
       - "7006:7006"
       - "17006:17006"
     volumes:
-      - ./redis-node-6.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/cluster/redis-node-6.conf:/usr/local/etc/redis/redis.conf
     networks:
       - redis-cluster-net
 
