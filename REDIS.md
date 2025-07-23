@@ -1,4 +1,4 @@
-# Learn Redis
+# Learn Redis and Practice English
 
 ## 0. CLUSTER
 ``` bash
